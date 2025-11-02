@@ -52,7 +52,9 @@ NovelScrape 是一个高性能的 Python 异步爬虫工具，专为从 [哔哩�
 本项目依赖一些第三方库。打开命令行或终端，切换到项目根目录，通过 `requirements.txt` 文件安装所需库：
 
 ```
+
 pip install -r requirements.txt
+
 ```
 
 ### 3. 运行程序
@@ -68,7 +70,9 @@ Bash
   
 
 ```
+
 python GUI.py
+
 ```
 
 在 GUI 界面中，输入小说 ID 或目录链接即可开始爬取。
