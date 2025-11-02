@@ -1,0 +1,42 @@
+# -------------------------------------------------------------
+# 1. 操作系统和IDE生成的文件 (OS and IDE Generated Files)
+# -------------------------------------------------------------
+.DS_Store             # macOS 系统文件
+Thumbs.db             # Windows 缩略图缓存
+
+# IDE files (根据你的IDE添加或删除)
+.vscode/              # Visual Studio Code 设置
+.idea/                # IntelliJ / PyCharm 设置
+
+
+# -------------------------------------------------------------
+# 2. Python 编译和环境文件 (Python Compilation and Environment)
+# -------------------------------------------------------------
+*.pyc                 # Python 编译文件
+__pycache__/          # 编译缓存目录
+.pytest_cache/        # Pytest 缓存
+
+# Python 虚拟环境目录
+venv/
+env/
+
+# pip freeze output
+# 注意：如果你使用 'pip freeze > requirements.txt' 生成依赖，请确保 requirements.txt 没有被忽略！
+# 如果你手动维护 requirements.txt，则不需要忽略它。
+
+
+# -------------------------------------------------------------
+# 3. 爬虫生成的数据和输出文件 (Scraper Output Data)
+# -------------------------------------------------------------
+
+# 根据你的 Save_data.py 中的路径，忽略所有生成的数据和电子书：
+
+# 爬虫保存的 JSON 数据目录
+# (根据 Save_data.py 中的 os.path.join(r'./jsons',...) )
+jsons/
+
+# 爬虫保存的 EPUB 电子书
+*.epub
+
+# 日志文件
+*.log
