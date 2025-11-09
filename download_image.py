@@ -20,21 +20,6 @@ async def download_all_img(img_info,base_save_data,session:aiohttp.ClientSession
     await asyncio.gather(*tasks)
     logging.info('图片下载完成')
     
-""" async def download_img(session:aiohttp.ClientSession,url,full_sava_path):
-    try:
-        async with session.get(url,timeout=30) as response:
-            if response.status==200:
-                image_data=await response.read()
-                with open(full_sava_path,'wb') as f:
-                    f.write(image_data)
-                logging.info(f"成功下载图片到{full_sava_path}")
-                return full_sava_path
-            else:
-                logging.error(f"下载图片失败,状态码{response.status}:{url}")
-                return None
-    except Exception as e:
-        logging.error(f"下载图片{url}时发生异常:{e}")
-        return None """
 async def download_img(session:aiohttp.ClientSession,url,full_sava_path):
     try:
         async with session.get(url,timeout=30) as response:
@@ -56,12 +41,14 @@ async def download_img(session:aiohttp.ClientSession,url,full_sava_path):
         logging.error(f"下载图片{url}时发生异常:{e}")
         return None
     
-def get_image(content_container,chapter_id):
+def get_image(content_container,chapter_id,index=0):
     image_holder=[]
     xpath_expression='.//img[contains(@class,"imagecontent") and (@src or @data-src or @data-original)]'
-    for index,image in enumerate(content_container.xpath(xpath_expression)):
+    for image in content_container.xpath(xpath_expression):
         img_src=image.get('data-src') or image.get('src')
-        relative_filename=f"images/{chapter_id}_{index+1:03d}{os.path.splitext(urlparse(img_src).path)[1] or'.jpg'}"
+        index+=1
+        relative_filename=f"images/{chapter_id}_{index:03d}{os.path.splitext(urlparse(img_src).path)[1] or'.jpg'}"
+        
         image_info={
             'url':img_src,
             'relative_path':relative_filename
@@ -72,4 +59,4 @@ def get_image(content_container,chapter_id):
         new_text_node=etree.Element('img')
         new_text_node.text=placeholder_tag
         image.getparent().replace(image,new_text_node)
-    return image_holder
+    return image_holder,index

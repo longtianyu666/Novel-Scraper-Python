@@ -78,6 +78,8 @@ async def scrape_chapter_content(website,chapter_data):
         URL='https://www.linovelib.com{url}'
         page_content=[]
         current_url=URL.format(url=start_url)
+        
+        next_image_index=0
         logging.info(f'开始爬取{current_url}')
         while current_url:
             html=await Scrape.scrape_api(current_url,session)
@@ -90,7 +92,7 @@ async def scrape_chapter_content(website,chapter_data):
             # 处理图片
             if text_content:
                 content_container=text_content[0]
-                image_holder=download_image.get_image(content_container,chapter_id)
+                image_holder,next_image_index=download_image.get_image(content_container,chapter_id,index=next_image_index)
                 chapter_data['img'].extend(image_holder)
                 
                 original_paragraph=[]
